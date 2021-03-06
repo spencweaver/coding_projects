@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    index
+{% endblock %}
+
+{% block main %}
+    <h1>Monthly Budget</h1>
+    <table>
+        <tr>
+            <th>Monthly Amount</th>
+            <th>To Budget</th>
+            <th>Total Funds</th>
+        </tr>
+
+            <tr>
+                <td>{{ categories[0]["budget"] | usd  }}</td>
+                <td>{{ categories[0]["remaining"] | usd  }}</td>
+                <td>{{ categories[0]["cash"] | usd  }}</td>
+            </tr>
+    </table>
+{% endblock %}

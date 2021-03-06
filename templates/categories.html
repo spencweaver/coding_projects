@@ -1,0 +1,65 @@
+
+
+{% extends "layout.html" %}
+
+{% block title %}
+    index
+{% endblock %}
+
+{% block main %}
+    {% if categories %}
+    <h1>Monthly Budget</h1>
+    <table>
+        <tr>
+            <th>Monthly Amount</th>
+            <th>To Budget</th>
+            <th>Total Funds</th>
+        </tr>
+
+            <tr>
+                <td>{{ categories[0]["budget"] | usd  }}</td>
+                <td>{{ categories[0]["remaining"] | usd  }}</td>
+                <td>{{ categories[0]["cash"] | usd  }}</td>
+            </tr>
+
+    </table><br>
+
+    <h1>Budgeted Categories</h1>
+
+
+    <table>
+        <tr>
+            <th>Category</th>
+            <th>Budgeted</th>
+            <th>Remaining</th>
+        </tr>
+        {% for row in categories %}
+
+            <tr>
+                <td>{{ row["category"] }}</td>
+                <td>{{ row["amount"] | usd  }}</td>
+                <td>{{ row["remainingc"] | usd }}</td>
+                <td><form action="/edit_categories" method="get"><button class="btn btn-primary" type="submit" value="{{ row["cid"] }}" name="edit">Edit</button></form></td>
+
+
+            </tr>
+
+        {% endfor %}
+    {% endif %}
+    </table>
+
+    <br><br>
+
+    <h2>Add Categories</h2>
+
+    <form action="/categories" method="post">
+        <div class="form-group">
+            <input class="form-control" name="category" placeholder="category" type="text">
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="amount" placeholder="amount" type="number" step=".01">
+        </div>
+        <button class="btn btn-primary" type="submit">Create Category</button>
+    </form>
+
+{% endblock %}

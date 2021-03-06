@@ -1,0 +1,75 @@
+
+
+{% extends "layout.html" %}
+
+{% block title %}
+    transactions
+{% endblock %}
+
+{% block main %}
+<h1>Total Funds</h1>{{ users[0]["cash"] | usd }}
+<h1>Filter Transactions</h1>
+    <form action="/view" method="post">
+        <table>
+            <tr>
+                <td><div class="form-group">
+                <input class="form-control" name="month" placeholder="month" type="number" min="1" max="12">
+            </div></td>
+            <td><div class="form-group">
+                <input class="form-control" name="year" placeholder="year" type="number" min="1000" max="2100">
+            </div></td>
+            <td><button class="btn btn-primary" type="submit">View Month</button></td></form>
+            <td><a href="/transactions">View All Transactions</a></td>
+            </tr>
+        </table>
+<br><br>
+
+
+<h1>Transactions</h1>
+    {% if transactions %}
+
+    <table>
+        <tr>
+
+            <th>Name</th>
+            <th>Date</th>
+            <th>Category</th>
+            <th>Amount</th>
+
+            <th></th>
+        </tr>
+        {% for row in transactions %}
+            <tr>
+                <td>{{ row["name"] }}</td>
+                <td>{{ row["date"] }}</td>
+                <td>{{ row["category"] }}</td>
+                <td>{{ row["amount"] | usd }}</td>
+                <td><form action="/edit_transactions" method="get"><button class="btn btn-primary" type="submit" value="{{ row["idt"] }}" name="edit">Edit</button></form></td>
+            </tr>
+
+        {% endfor %}
+    {% endif %}
+
+    </table>
+
+<br>
+<h1>Add A New Transaction</h1>
+
+    <form action="/transactions" method="post">
+        <div class="form-group">
+            <input class="form-control" name="transaction" placeholder="transaction" type="text">
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="amount" placeholder="amount" type="number" step=".01">
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="date" placeholder="date" type="date">
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="category" placeholder="category" type="text">
+        </div>
+        <button class="btn btn-primary" type="submit">Add Transaction</button>
+    </form>
+
+
+{% endblock %}

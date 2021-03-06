@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    index
+{% endblock %}
+
+{% block main %}
+    <form action="/setup" method="post">
+        <div class="form-group">
+            <input class="form-control" name="cash" placeholder="cash" type="number" min="1" max="1000000000000000">
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="budgeted" placeholder="Monthly budget" type="number">
+        </div>
+        <button class="btn btn-primary" type="submit">setup</button>
+    </form>
+{% endblock %}
